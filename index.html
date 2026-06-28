@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ポートフォリオ | フルスタックエンジニア</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:   #ffffff;
+      --off:     #f8f8f6;
+      --border:  #e8e8e4;
+      --ink-1:   #1a1a1a;
+      --ink-2:   #555550;
+      --ink-3:   #999994;
+      --accent:  #2563eb;
+      --accent-light: #eff6ff;
+      --radius:  6px;
+      --max:     780px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", sans-serif;
+      background: var(--white);
+      color: var(--ink-1);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 56px;
+    }
+    .nav-logo { font-size: 14px; font-weight: 700; letter-spacing: .05em; color: var(--ink-1); text-decoration: none; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--ink-2); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section { max-width: var(--max); margin: 0 auto; padding: 72px 24px; }
+    section + section { border-top: 1px solid var(--border); }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 12px;
+    }
+    h2 { font-size: 26px; font-weight: 700; letter-spacing: -.01em; margin-bottom: 28px; }
+
+    /* ── HERO ── */
+    #hero { padding-top: 96px; padding-bottom: 96px; }
+    .hero-eyebrow {
+      font-size: 12px; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--ink-3); margin-bottom: 16px;
+    }
+    .hero-name {
+      font-size: clamp(36px, 6vw, 54px);
+      font-weight: 700; letter-spacing: -.03em;
+      line-height: 1.1; margin-bottom: 20px;
+    }
+    .hero-name span { color: var(--accent); }
+    .hero-desc {
+      font-size: 17px; color: var(--ink-2);
+      max-width: 520px; margin-bottom: 36px; line-height: 1.8;
+    }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+    .badge {
+      font-size: 12px; font-weight: 600; letter-spacing: .04em;
+      background: var(--accent-light); color: var(--accent);
+      padding: 4px 12px; border-radius: 99px;
+    }
+
+    /* ── CAREER ── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .tl-item {
+      display: grid; grid-template-columns: 140px 1fr;
+      gap: 0 28px; padding: 28px 0;
+      border-top: 1px solid var(--border);
+    }
+    .tl-item:first-child { border-top: none; padding-top: 0; }
+    .tl-period { font-size: 12px; color: var(--ink-3); padding-top: 3px; line-height: 1.6; }
+    .tl-company { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .tl-role { font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
+    .tl-desc { font-size: 14px; color: var(--ink-2); line-height: 1.8; }
+    .tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .tag {
+      font-size: 11px; font-weight: 600;
+      background: var(--off); color: var(--ink-2);
+      padding: 3px 10px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .skill-card {
+      background: var(--off); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+    }
+    .skill-card h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; color: var(--ink-1); }
+    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .skill-list li { font-size: 13px; color: var(--ink-2); }
+    .skill-list li::before { content: "— "; color: var(--accent); }
+
+    /* ── SERVICES ── */
+    .services-list { display: flex; flex-direction: column; gap: 0; }
+    .service-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 20px 0; border-top: 1px solid var(--border);
+    }
+    .service-item:first-child { border-top: none; padding-top: 0; }
+    .service-num { font-size: 12px; font-weight: 700; color: var(--accent); min-width: 28px; padding-top: 2px; }
+    .service-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .service-desc { font-size: 13px; color: var(--ink-2); line-height: 1.7; }
+
+    /* ── AVAILABILITY ── */
+    .avail-box {
+      background: var(--off); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 32px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .avail-item dt { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); margin-bottom: 4px; }
+    .avail-item dd { font-size: 15px; font-weight: 600; color: var(--ink-1); }
+
+    /* ── CONTACT ── */
+    .contact-note { font-size: 15px; color: var(--ink-2); margin-bottom: 28px; line-height: 1.8; }
+    .contact-cta {
+      display: inline-block;
+      background: var(--accent); color: #fff;
+      font-size: 14px; font-weight: 700;
+      padding: 12px 28px; border-radius: var(--radius);
+      text-decoration: none; transition: opacity .2s;
+    }
+    .contact-cta:hover { opacity: .85; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center; padding: 32px 24px;
+      font-size: 12px; color: var(--ink-3);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 540px) {
+      .tl-item { grid-template-columns: 1fr; gap: 4px; }
+      .tl-period { padding-top: 0; }
+      .avail-box { grid-template-columns: 1fr; }
+      .nav-links { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#hero">ENGINEER PORTFOLIO</a>
+    <ul class="nav-links">
+      <li><a href="#career">経歴</a></li>
+      <li><a href="#skills">スキル</a></li>
+      <li><a href="#services">対応業務</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow">Fullstack Engineer · Since 2017</p>
+  <h1 class="hero-name">組み込みから Web まで、<br><span>一気通貫で届ける</span>エンジニア</h1>
+  <p class="hero-desc">
+    2017年よりソフトウェアエンジニアとして約8年のキャリアを積んできました。
+    組み込みシステムの低レイヤー開発から、React を用いた Web フロントエンド開発まで、
+    幅広い技術領域で実務経験があります。
+  </p>
+  <div class="hero-badges">
+    <span class="badge">C / C++</span>
+    <span class="badge">C#</span>
+    <span class="badge">React</span>
+    <span class="badge">VBA</span>
+    <span class="badge">Ruby</span>
+    <span class="badge">組み込み開発</span>
+    <span class="badge">業務システム</span>
+  </div>
+</section>
+
+<!-- CAREER -->
+<section id="career">
+  <p class="section-label">Career</p>
+  <h2>職務経歴</h2>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-period">2023年10月<br>〜 現在</div>
+      <div>
+        <p class="tl-company">受託ソフトウェア開発会社</p>
+        <p class="tl-role">ソフトウェアエンジニア</p>
+        <p class="tl-desc">
+          EIZO 製ディスプレイ製品のソフトウェア開発に従事。
+          映像処理・表示デバイス制御・ハードウェア連携など複数部門が協調する開発環境の中で、
+          React を用いたフロントエンド開発を担当。
+        </p>
+        <div class="tl-tags">
+          <span class="tag">React</span>
+          <span class="tag">フロントエンド</span>
+          <span class="tag">映像機器</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">2021年6月<br>〜 2022年12月</div>
+      <div>
+        <p class="tl-company">受託ソフトウェア開発会社</p>
+        <p class="tl-role">ソフトウェアエンジニア</p>
+        <p class="tl-desc">
+          ガソリンスタンド向け SA システムの改善・新規仕様追加を担当。
+          入社後2ヶ月はデバッグと仕様理解に集中し、その後は詳細設計から実装・テストまで
+          主担当として約1年4ヶ月従事。詳細設計〜保守運用まで全フェーズを経験。
+        </p>
+        <div class="tl-tags">
+          <span class="tag">C++</span>
+          <span class="tag">VC++</span>
+          <span class="tag">C</span>
+          <span class="tag">C#</span>
+          <span class="tag">VBA</span>
+          <span class="tag">業務システム</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">2017年4月<br>〜 2020年12月</div>
+      <div>
+        <p class="tl-company">受託ソフトウェア開発会社</p>
+        <p class="tl-role">ソフトウェアエンジニア</p>
+        <p class="tl-desc">
+          給湯器・パチンコ・印刷・発電システムなど、多様な組み込み系プロジェクトを経験。
+          給湯器（組み込み C・約1年）、パチンコシステム（C++ メイン・約1年半）、
+          印刷システムのデバッグ管理（約3ヶ月）、発電システムのハードウェアサポート（約2ヶ月）
+          をそれぞれ担当。
+        </p>
+        <div class="tl-tags">
+          <span class="tag">C</span>
+          <span class="tag">C++</span>
+          <span class="tag">Ruby</span>
+          <span class="tag">VB.net</span>
+          <span class="tag">組み込み</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Skills</p>
+  <h2>技術スキル</h2>
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <h3>言語</h3>
+      <ul class="skill-list">
+        <li>C / C++ / VC++</li>
+        <li>C#</li>
+        <li>React（JavaScript）</li>
+        <li>Ruby</li>
+        <li>VBA / VB.net</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <h3>得意領域</h3>
+      <ul class="skill-list">
+        <li>組み込みシステム開発</li>
+        <li>Web フロントエンド開発</li>
+        <li>業務システムの改善</li>
+        <li>デバッグ・リファクタリング</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <h3>担当可能フェーズ</h3>
+      <ul class="skill-list">
+        <li>詳細設計</li>
+        <li>プログラミング・実装</li>
+        <li>単体・結合・システムテスト</li>
+        <li>保守・運用</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <p class="section-label">Services</p>
+  <h2>対応可能な業務</h2>
+  <div class="services-list">
+
+    <div class="service-item">
+      <span class="service-num">01</span>
+      <div>
+        <p class="service-name">Web フロントエンド開発</p>
+        <p class="service-desc">React を用いた UI 実装、LP 制作、既存サイトへの機能追加・改修に対応します。</p>
+      </div>
+    </div>
+
+    <div class="service-item">
+      <span class="service-num">02</span>
+      <div>
+        <p class="service-name">業務システムの改善・機能追加</p>
+        <p class="service-desc">C# / VBA を用いた既存業務システムのバグ修正、新規仕様追加、リファクタリングを行います。</p>
+      </div>
+    </div>
+
+    <div class="service-item">
+      <span class="service-num">03</span>
+      <div>
+        <p class="service-name">組み込みソフトウェア開発</p>
+        <p class="service-desc">C / C++ を用いた組み込み系の詳細設計・実装・テストに対応します。民生機器・産業機器の実績あり。</p>
+      </div>
+    </div>
+
+    <div class="service-item">
+      <span class="service-num">04</span>
+      <div>
+        <p class="service-name">デバッグ・コードレビュー</p>
+        <p class="service-desc">既存コードの品質改善、バグ調査、テスト設計・実施をお引き受けします。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AVAILABILITY -->
+<section id="availability">
+  <p class="section-label">Availability</p>
+  <h2>稼働条件</h2>
+  <div class="avail-box">
+    <dl class="avail-item">
+      <dt>稼働時間</dt>
+      <dd>週16時間程度</dd>
+    </dl>
+    <dl class="avail-item">
+      <dt>稼働時間帯</dt>
+      <dd>平日夜間・土日のいずれか</dd>
+    </dl>
+    <dl class="avail-item">
+      <dt>勤務形態</dt>
+      <dd>完全リモート</dd>
+    </dl>
+    <dl class="avail-item">
+      <dt>コミュニケーション</dt>
+      <dd>Slack / メール（非同期対応可）</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Contact</p>
+  <h2>お問い合わせ</h2>
+  <p class="contact-note">
+    納期を守ることはもちろん、丁寧なコミュニケーションを心がけております。<br>
+    着手前に仕様・要件を確認・合意した上で進めるスタイルで、安心してご依頼いただけます。<br>
+    ご連絡いただければ速やかに対応いたします。
+  </p>
+  <a class="contact-cta" href="https://www.lancers.jp" target="_blank" rel="noopener">
+    Lancers からメッセージを送る
+  </a>
+</section>
+
+<footer>
+  <p>© 2024 フルスタックエンジニア — Kanazawa, Japan</p>
+</footer>
+
+</body>
+</html>
